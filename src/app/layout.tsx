@@ -1,4 +1,5 @@
 import { DarkModeToggle } from "@/components/DarkModeToggle";
+import QueryProvider from "@/components/query-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -39,7 +40,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    {children}
+                    <QueryProvider>{children}</QueryProvider>
                     <DarkModeToggle />
                 </ThemeProvider>
             </body>
