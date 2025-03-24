@@ -1,6 +1,7 @@
 "use client";
 
 import useGetArtworks from "@/components/hooks/useGetArtworks";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Artwork } from "@/lib/types";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
@@ -35,8 +36,8 @@ export default function Home() {
     }
 
     return (
-        <main>
-            <section className="flex flex-col gap-4">
+        <main className="w-full flex flex-col justify-center items-center gap-4">
+            <section className="w-3/4 flex flex-col gap-4">
                 {data?.pages.map((page, idx) => (
                     <React.Fragment key={idx}>
                         {page.data.map((work: Artwork) => (
@@ -53,11 +54,11 @@ export default function Home() {
                 ))}
             </section>
             {hasNextPage && isFetchingNextPage ? (
-                <p>Loading more...</p>
+                <LoadingSpinner size={36} />
             ) : (
-                <p>No more works found</p>
+                <p className="text-center">No more works found</p>
             )}
-            <div className="h-4 w-4" ref={ref} />
+            <div className="h-2" ref={ref} />
         </main>
     );
 }
