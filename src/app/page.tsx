@@ -1,6 +1,7 @@
 "use client";
 
 import useGetArtworks from "@/components/hooks/useGetArtworks";
+import useGetMoreArtworks from "@/components/hooks/useGetMoreArtworks";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Artwork } from "@/lib/types";
 import React, { useEffect } from "react";
@@ -19,13 +20,7 @@ export default function Home() {
     } = useGetArtworks();
 
     const { ref, inView } = useInView();
-    useEffect(() => {
-        if (inView) {
-            fetchNextPage();
-        }
-    }, [inView]);
-
-    console.log(inView);
+    useGetMoreArtworks(inView, fetchNextPage);
 
     if (isLoading) {
         return <p>Loading...</p>;
