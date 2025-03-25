@@ -1,5 +1,6 @@
 "use client";
 
+import ArtworkCard from "@/components/ArtworkCard";
 import useGetArtworks from "@/components/hooks/useGetArtworks";
 import useGetMoreArtworks from "@/components/hooks/useGetMoreArtworks";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
@@ -36,14 +37,7 @@ export default function Home() {
                 {data?.pages.map((page, idx) => (
                     <React.Fragment key={idx}>
                         {page.data.map((work: Artwork) => (
-                            <article key={work.id}>
-                                <h2>{work.title}</h2>
-                                <p>{work.artist_display}</p>
-                                <p>
-                                    {work.date_start} - {work.date_end}
-                                </p>
-                                {/* <p>{work.description}</p> */}
-                            </article>
+                            <ArtworkCard key={work.id} {...work} />
                         ))}
                     </React.Fragment>
                 ))}
