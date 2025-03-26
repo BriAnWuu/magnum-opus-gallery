@@ -3,9 +3,10 @@
 import ArtworkCard from "@/components/ArtworkCard";
 import useGetArtworks from "@/components/hooks/useGetArtworks";
 import useGetMoreArtworks from "@/components/hooks/useGetMoreArtworks";
+
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Artwork } from "@/lib/types";
-import React, { useEffect } from "react";
+import React from "react";
 import { useInView } from "react-intersection-observer";
 
 export default function Home() {
@@ -33,7 +34,7 @@ export default function Home() {
 
     return (
         <main className="w-full flex flex-col justify-center items-center gap-4">
-            <section className="w-3/4 flex flex-col gap-4">
+            <ul className="w-3/4 flex flex-col gap-4">
                 {data?.pages.map((page, idx) => (
                     <React.Fragment key={idx}>
                         {page.data.map((work: Artwork) => (
@@ -41,7 +42,7 @@ export default function Home() {
                         ))}
                     </React.Fragment>
                 ))}
-            </section>
+            </ul>
             {hasNextPage && isFetchingNextPage ? (
                 <LoadingSpinner size={36} />
             ) : (
