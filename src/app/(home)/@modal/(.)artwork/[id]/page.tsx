@@ -1,4 +1,5 @@
 import PreviewModal from "@/components/PreviewModal";
+import { PreviewModalSkeleton } from "@/components/Skeletons";
 
 type ModalPageProps = {
     params: Promise<{
@@ -6,9 +7,12 @@ type ModalPageProps = {
     }>;
 };
 
+const className = "w-[600px] h-[80vh]";
+
 export default async function ModalPage({ params }: ModalPageProps) {
     const { id } = await params;
 
     // todo: handle undifined id and skeleton
-    return <PreviewModal id={id} />;
+    return <PreviewModal id={id} className={className} />;
+    // return <PreviewModalSkeleton className={className} />;
 }

@@ -1,20 +1,28 @@
 "use client";
 
+import useGetArtworkById from "@/hooks/useGetArtworkById";
+import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
-import useGetArtworkById from "./hooks/useGetArtworkById";
+import { PreviewModalSkeleton } from "./Skeletons";
 import CloseButton from "./ui/close-button";
 import ImageDisplay from "./ui/image-display";
 import Overlay from "./ui/overlay";
 
-export default function PreviewModal({ id }: { id: number }) {
+export default function PreviewModal({
+    id,
+    className,
+}: {
+    id: number;
+    className: string;
+}) {
     const router = useRouter();
 
     // todo: handle undifined id
     const { data, error, isLoading, isError } = useGetArtworkById(id ?? -1);
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <PreviewModalSkeleton className={className} />;
     }
     if (isError) {
         return <p>Error: {(error as Error).message}</p>;
@@ -39,7 +47,12 @@ export default function PreviewModal({ id }: { id: number }) {
     return createPortal(
         <>
             <Overlay handleOnClick={handleNavigateHome} />
-            <div className="fixed w-[600px] h-[80vh] top-1/2 left-1/2 -translate-1/2 z-2 rounded-md bg-secondary overflow-scroll">
+            <div
+                className={cn(
+                    "fixed top-1/2 left-1/2 -translate-1/2 z-2 rounded-md bg-secondary overflow-scroll",
+                    className
+                )}
+            >
                 <CloseButton handleOnClick={handleNavigateHome} />
                 <ImageDisplay
                     image_id={image_id}

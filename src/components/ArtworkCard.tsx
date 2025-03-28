@@ -1,10 +1,10 @@
+import { useInvertedBorderRadius } from "@/hooks/useInvertedBorderRadius";
 import { Artwork } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { motion, useMotionValue } from "framer-motion";
 import Link from "next/link";
 import { memo, useState } from "react";
 import { closeSpring, openSpring } from "./animations/card-animations";
-import { useInvertedBorderRadius } from "./hooks/useInvertedBorderRadius";
 import ImageDisplay from "./ui/image-display";
 import Overlay from "./ui/overlay";
 

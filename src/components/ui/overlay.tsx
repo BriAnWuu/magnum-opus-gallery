@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export default function Overlay({
     handleOnClick,
 }: {
-    handleOnClick: () => void;
+    handleOnClick?: () => void;
 }) {
     return (
         <motion.div

@@ -1,10 +1,9 @@
 "use client";
 
 import ArtworkCard from "@/components/ArtworkCard";
-import useGetArtworks from "@/components/hooks/useGetArtworks";
-import useGetMoreArtworks from "@/components/hooks/useGetMoreArtworks";
-
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import useGetArtworks from "@/hooks/useGetArtworks";
+import useGetMoreArtworks from "@/hooks/useGetMoreArtworks";
 import { Artwork } from "@/lib/types";
 import React from "react";
 import { useInView } from "react-intersection-observer";
