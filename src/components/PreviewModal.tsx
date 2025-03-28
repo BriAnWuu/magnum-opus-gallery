@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import useGetArtworkById from "./hooks/useGetArtworkById";
+import CloseButton from "./ui/close-button";
 import ImageDisplay from "./ui/image-display";
 import Overlay from "./ui/overlay";
-import XMark from "./ui/x-mark";
 
 export default function PreviewModal({ id }: { id: number }) {
     const router = useRouter();
@@ -32,18 +32,15 @@ export default function PreviewModal({ id }: { id: number }) {
         image_id,
     } = data.data;
 
+    const handleNavigateHome = () => {
+        router.push("/", { scroll: false });
+    };
+
     return createPortal(
         <>
-            <Overlay />
-            <div className="fixed w-[600px] h-[90vh] top-1/2 left-1/2 -translate-1/2 z-2 rounded-md bg-secondary overflow-scroll">
-                <div
-                    className="absolute top-2 right-2 z-1 transition-all ease-in hover:scale-115"
-                    onClick={() => {
-                        router.back();
-                    }}
-                >
-                    <XMark className="size-6 fill-secondary cursor-pointer" />
-                </div>
+            <Overlay handleOnClick={handleNavigateHome} />
+            <div className="fixed w-[600px] h-[80vh] top-1/2 left-1/2 -translate-1/2 z-2 rounded-md bg-secondary overflow-scroll">
+                <CloseButton handleOnClick={handleNavigateHome} />
                 <ImageDisplay
                     image_id={image_id}
                     title={title}
