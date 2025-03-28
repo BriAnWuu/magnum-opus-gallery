@@ -1,16 +1,13 @@
 "use client";
 
-import Image from "next/image";
-
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
 import { createPortal } from "react-dom";
 import useGetArtworkById from "./hooks/useGetArtworkById";
-import { articContext } from "./providers/artic-provider";
-import { AspectRatio } from "./ui/aspect-ratio";
+import ImageDisplay from "./ui/image-display";
+import Overlay from "./ui/overlay";
+import XMark from "./ui/x-mark";
 
 export default function PreviewModal({ id }: { id: number }) {
-    const { imageUrl, imageConfig } = useContext(articContext);
     const router = useRouter();
 
     // todo: handle undifined id
@@ -36,35 +33,33 @@ export default function PreviewModal({ id }: { id: number }) {
     } = data.data;
 
     return createPortal(
-        <div className="fixed w-[600px] h-[90vh] top-1/2 left-1/2 -translate-1/2 z-2 rounded-md bg-secondary overflow-scroll">
-            <div
-                className="absolute top-2 right-2 z-1"
-                onClick={() => {
-                    router.back();
-                }}
-            >
-                close
-            </div>
-            <AspectRatio ratio={16 / 9}>
-                <Image
-                    src={`${imageUrl}/${image_id}${imageConfig}`}
-                    alt={`image of ${title}`}
-                    fill
-                    priority
-                    className="w-full rounded-t-md object-cover"
-                    sizes="(max-width:768px) 100%, (max-width:1024px) 100%, 100%"
+        <>
+            <Overlay />
+            <div className="fixed w-[600px] h-[90vh] top-1/2 left-1/2 -translate-1/2 z-2 rounded-md bg-secondary overflow-scroll">
+                <div
+                    className="absolute top-2 right-2 z-1 transition-all ease-in hover:scale-115"
+                    onClick={() => {
+                        router.back();
+                    }}
+                >
+                    <XMark className="size-6 fill-secondary cursor-pointer" />
+                </div>
+                <ImageDisplay
+                    image_id={image_id}
+                    title={title}
+                    priority={true}
                 />
-            </AspectRatio>
-            <section className="relative w-full flex flex-col gap-2 rounded-b-md shadow-[0_0_4rem_6rem] shadow-secondary p-4">
-                <h2 className="text-xl font-bold">{title}</h2>
-                <p>{`${date_start} ~ ${date_end}`}</p>
-                <p>{place_of_origin}</p>
-                <p>{artist_titles?.join(", ")}</p>
-                <p>{description}</p>
-                <p>{dimensions}</p>
-                <p>{medium_display}</p>
-            </section>
-        </div>,
+                <section className="relative w-full flex flex-col gap-2 rounded-b-md shadow-[0_0_4rem_6rem] shadow-secondary p-4">
+                    <h2 className="text-xl font-bold">{title}</h2>
+                    <p>{`${date_start} ~ ${date_end}`}</p>
+                    <p>{place_of_origin}</p>
+                    <p>{artist_titles?.join(", ")}</p>
+                    <p>{description}</p>
+                    <p>{dimensions}</p>
+                    <p>{medium_display}</p>
+                </section>
+            </div>
+        </>,
         document.body
     );
 }

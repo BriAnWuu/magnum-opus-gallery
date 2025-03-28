@@ -9,10 +9,6 @@ type ModalPageProps = {
 export default async function ModalPage({ params }: ModalPageProps) {
     const { id } = await params;
 
-    return (
-        <>
-            <p>intercepted</p>
-            <PreviewModal id={id} />
-        </>
-    );
+    // todo: handle undifined id and skeleton
+    return <PreviewModal id={id} />;
 }
