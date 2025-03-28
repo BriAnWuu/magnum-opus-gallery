@@ -10,7 +10,7 @@ export default function ArtworkCard({ id, title, image_id }: Partial<Artwork>) {
 
     return (
         <article>
-            <Link href={`/modal/${id}`}>
+            <Link href={`/artwork/${id}`}>
                 <AspectRatio ratio={16 / 9}>
                     <Image
                         src={`${imageUrl}/${image_id}${imageConfig}`}
