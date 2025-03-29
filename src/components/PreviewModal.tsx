@@ -1,5 +1,6 @@
 "use client";
 
+import useBodyScrollLock from "@/hooks/useBodyScrollLock";
 import useGetArtworkById from "@/hooks/useGetArtworkById";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -17,6 +18,7 @@ export default function PreviewModal({
     className: string;
 }) {
     const router = useRouter();
+    useBodyScrollLock();
 
     // todo: handle undifined id
     const { data, error, isLoading, isError } = useGetArtworkById(id ?? -1);
