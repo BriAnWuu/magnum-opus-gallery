@@ -48,28 +48,33 @@ export default function PreviewModal({
 
     return createPortal(
         <>
-            <Overlay handleOnClick={handleNavigateHome} />
+            <Overlay />
             <div
-                className={cn(
-                    "fixed top-1/2 left-1/2 -translate-1/2 z-2 rounded-md bg-secondary overflow-scroll",
-                    className
-                )}
+                className="fixed p-8 inset-0 z-2 overflow-auto"
+                onClick={handleNavigateHome}
             >
-                <CloseButton handleOnClick={handleNavigateHome} />
-                <ImageDisplay
-                    image_id={image_id}
-                    title={title}
-                    priority={true}
-                />
-                <section className="relative w-full flex flex-col gap-2 rounded-b-md shadow-[0_0_4rem_6rem] shadow-secondary p-4">
-                    <h2 className="text-xl font-bold">{title}</h2>
-                    <p>{`${date_start} ~ ${date_end}`}</p>
-                    <p>{place_of_origin}</p>
-                    <p>{artist_titles?.join(", ")}</p>
-                    <p>{description}</p>
-                    <p>{dimensions}</p>
-                    <p>{medium_display}</p>
-                </section>
+                <div
+                    className={cn(
+                        "relative left-1/2 -translate-x-1/2 rounded-md bg-secondary overflow-hidden",
+                        className
+                    )}
+                >
+                    <CloseButton handleOnClick={handleNavigateHome} />
+                    <ImageDisplay
+                        image_id={image_id}
+                        title={title}
+                        priority={true}
+                    />
+                    <section className="relative w-full flex flex-col gap-2 rounded-b-md shadow-[0_0_4rem_6rem] shadow-secondary p-4">
+                        <h2 className="text-xl font-bold">{title}</h2>
+                        <p>{`${date_start} ~ ${date_end}`}</p>
+                        <p>{place_of_origin}</p>
+                        <p>{artist_titles?.join(", ")}</p>
+                        <p>{description}</p>
+                        <p>{dimensions}</p>
+                        <p>{medium_display}</p>
+                    </section>
+                </div>
             </div>
         </>,
         document.body
