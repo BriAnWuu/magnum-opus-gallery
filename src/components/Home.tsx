@@ -1,8 +1,11 @@
 "use client";
 
-import useGetArtworks from "@/components/hooks/useGetArtworks";
+import ArtworkCard from "@/components/ArtworkCard";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import useGetArtworks from "@/hooks/useGetArtworks";
+import useGetMoreArtworks from "@/hooks/useGetMoreArtworks";
 import { Artwork } from "@/lib/types";
-import React, { useEffect } from "react";
+import React from "react";
 import { useInView } from "react-intersection-observer";
 
 export default function Home() {
@@ -18,13 +21,7 @@ export default function Home() {
     } = useGetArtworks();
 
     const { ref, inView } = useInView();
-    useEffect(() => {
-        if (inView) {
-            fetchNextPage();
-        }
-    }, [inView]);
-
-    console.log(inView);
+    useGetMoreArtworks(inView, fetchNextPage);
 
     if (isLoading) {
         return <p>Loading...</p>;
@@ -35,29 +32,22 @@ export default function Home() {
     }
 
     return (
-        <main>
-            <section className="flex flex-col gap-4">
+        <main className="w-full flex flex-col justify-center items-center gap-4">
+            <ul className="w-3/4 flex flex-col gap-4">
                 {data?.pages.map((page, idx) => (
                     <React.Fragment key={idx}>
                         {page.data.map((work: Artwork) => (
-                            <article key={work.id}>
-                                <h2>{work.title}</h2>
-                                <p>{work.artist_display}</p>
-                                <p>
-                                    {work.date_start} - {work.date_end}
-                                </p>
-                                {/* <p>{work.description}</p> */}
-                            </article>
+                            <ArtworkCard key={work.id} {...work} />
                         ))}
                     </React.Fragment>
                 ))}
-            </section>
+            </ul>
             {hasNextPage && isFetchingNextPage ? (
-                <p>Loading more...</p>
+                <LoadingSpinner size={36} />
             ) : (
-                <p>No more works found</p>
+                <p className="text-center">No more works found</p>
             )}
-            <div className="h-4 w-4" ref={ref} />
+            <div className="h-2" ref={ref} />
         </main>
     );
 }
