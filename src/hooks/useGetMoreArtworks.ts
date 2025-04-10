@@ -1,19 +1,14 @@
-import {
-    FetchNextPageOptions,
-    InfiniteData,
-    InfiniteQueryObserverResult,
-} from "@tanstack/react-query";
 import { useEffect } from "react";
 
 export default function useGetMoreArtworks(
     inView: boolean,
-    fetchNextFunc: (
-        options?: FetchNextPageOptions
-    ) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>>
+    hasNextPage: boolean,
+    isFetchingNextPage: boolean,
+    fetchNextFunc: () => void
 ) {
-    return useEffect(() => {
-        if (inView) {
+    useEffect(() => {
+        if (inView && hasNextPage && !isFetchingNextPage) {
             fetchNextFunc();
         }
-    }, [inView]);
+    }, [inView, fetchNextFunc]);
 }
