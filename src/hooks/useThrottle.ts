@@ -36,6 +36,7 @@ export default function useThrottle(
         };
     }
 
+    // useRef to persist throttle across renders
     const throttledFetch = useRef(
         throttle(() => {
             fetchNextFunc();

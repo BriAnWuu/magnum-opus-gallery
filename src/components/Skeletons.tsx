@@ -1,15 +1,9 @@
-import { cn } from "@/lib/utils";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Skeleton } from "./ui/skeleton";
 
-export function PreviewModalSkeleton({ className }: { className: string }) {
+export function PreviewModalSkeleton({}) {
     return (
-        <div
-            className={cn(
-                "fixed top-1/2 left-1/2 -translate-1/2 z-2 rounded-md bg-gray-700 overflow-scroll",
-                className
-            )}
-        >
+        <div className="size-full bg-neutral-900">
             <AspectRatio ratio={16 / 9}>
                 <Skeleton className="size-full rounded-md" />
             </AspectRatio>

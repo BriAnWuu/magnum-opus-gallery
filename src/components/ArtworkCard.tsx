@@ -1,4 +1,3 @@
-import { useInvertedBorderRadius } from "@/hooks/useInvertedBorderRadius";
 import { Artwork } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { motion, useMotionValue } from "framer-motion";
