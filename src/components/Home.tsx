@@ -4,6 +4,7 @@ import ArtworkCard from "@/components/ArtworkCard";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import useGetArtworks from "@/hooks/useGetArtworks";
 import useGetMoreArtworks from "@/hooks/useGetMoreArtworks";
+import useThrottle from "@/hooks/useThrottle";
 import { Artwork } from "@/lib/types";
 import React from "react";
 import { useInView } from "react-intersection-observer";
@@ -20,8 +21,11 @@ export default function Home() {
         isFetchingNextPage,
     } = useGetArtworks();
 
+    // api rate limit = 1000; add delay to see throttle effect
+    const throttledFetch = useThrottle(fetchNextPage, 3000);
+
     const { ref, inView } = useInView();
-    useGetMoreArtworks(inView, fetchNextPage);
+    useGetMoreArtworks(inView, hasNextPage, isFetchingNextPage, throttledFetch);
 
     if (isLoading) {
         return <p>Loading...</p>;
@@ -42,7 +46,7 @@ export default function Home() {
                     </React.Fragment>
                 ))}
             </ul>
-            {hasNextPage && isFetchingNextPage ? (
+            {hasNextPage ? (
                 <LoadingSpinner size={36} />
             ) : (
                 <p className="text-center">No more works found</p>
