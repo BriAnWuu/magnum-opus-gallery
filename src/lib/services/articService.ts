@@ -33,3 +33,16 @@ export async function getArtworkById(id: number) {
 
     return raw;
 }
+
+export async function getImageConfig() {
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_ARTIC_API_URL}/artworks?limit=1&fields=id`
+    );
+    if (!response.ok) {
+        throw new Error(`Failed to fetch image config`);
+    }
+
+    const raw = await response.json();
+
+    return raw;
+}
