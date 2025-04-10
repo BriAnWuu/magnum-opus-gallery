@@ -21,7 +21,7 @@ export default function Home() {
         isFetchingNextPage,
     } = useGetArtworks();
 
-    // api rate limit = 1000; add delay to see throttle effect
+    // api rate limit delay = 1000; add delay to see throttle effect
     const throttledFetch = useThrottle(fetchNextPage, 3000);
 
     const { ref, inView } = useInView();
