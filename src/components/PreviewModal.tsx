@@ -29,16 +29,16 @@ export default function PreviewModal({
     // todo: handle undifined id
     const { data, error, isLoading, isError } = useGetArtworkById(id ?? -1);
 
-    if (isError) {
-        return <p>Error: {(error as Error).message}</p>;
-    }
-
     const handleClose = () => {
         setIsClosing(true);
     };
     const handleNavigateHome = () => {
         if (isClosing) router.push("/", { scroll: false });
     };
+
+    if (isError) {
+        return <p>Error: {(error as Error).message}</p>;
+    }
 
     return createPortal(
         <>
@@ -62,6 +62,7 @@ export default function PreviewModal({
                         "relative left-1/2 -translate-x-1/2 rounded-md bg-secondary overflow-hidden",
                         className
                     )}
+                    onClick={(e) => e.stopPropagation()}
                 >
                     <CloseButton handleOnClick={handleClose} />
                     {isLoading ? (
