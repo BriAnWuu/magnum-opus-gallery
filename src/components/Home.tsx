@@ -37,7 +37,7 @@ export default function Home() {
     return (
         <main className="w-full flex flex-col justify-center items-center gap-4">
             <ul
-                className="w-3/4 flex flex-wrap gap-4"
+                className="w-full max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl flex flex-wrap gap-4 p-2"
                 // className="grid grid-cols-3 gap-4 auto-cols-fr"
             >
                 {data?.pages.map((page, idx) => (
@@ -48,10 +48,12 @@ export default function Home() {
                     </React.Fragment>
                 ))}
             </ul>
-            {hasNextPage ? (
+            {hasNextPage && isFetchingNextPage ? (
                 <LoadingSpinner size={36} />
             ) : (
-                <p className="text-center">No more works found</p>
+                !hasNextPage && (
+                    <p className="text-center">No more works found</p>
+                )
             )}
             <div className="h-1" ref={ref} />
         </main>
