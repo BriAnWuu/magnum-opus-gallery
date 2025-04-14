@@ -62,7 +62,7 @@ export default function PreviewModal({
                             isClosing
                                 ? {
                                       opacity: 0,
-                                      scale: 0.3,
+                                      scale: 0.2,
                                       x: position.x,
                                       y: position.y,
                                   }
