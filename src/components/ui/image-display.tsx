@@ -23,7 +23,7 @@ export default function ImageDisplay({
                 alt={`image of ${title}`}
                 fill
                 priority={priority}
-                className="size-full rounded-md object-cover"
+                className="size-full rounded-md lg:rounded-lg object-cover"
                 sizes="(max-width:768px) 100%, (max-width:1024px) 100%, 33%"
             />
         </AspectRatio>

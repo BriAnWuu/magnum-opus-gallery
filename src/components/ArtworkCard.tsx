@@ -45,7 +45,7 @@ function Card({ id, title, image_id }: Partial<Artwork>) {
 
     return (
         <li
-            className="flex-grow flex-shrink-0 basis-[26%]"
+            className="flex-grow flex-shrink-0 basis-full md:basis-[26%]"
             // ref={containerRef}
             // className="relative"
             // onClick={() => setIsSelected((prev) => !prev)}
