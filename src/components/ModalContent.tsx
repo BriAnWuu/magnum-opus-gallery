@@ -1,4 +1,5 @@
 import { Artwork } from "@/lib/types";
+import parse from "html-react-parser";
 import ImageDisplay from "./ui/image-display";
 
 export default function ModalContent({
@@ -20,7 +21,7 @@ export default function ModalContent({
                 <p>{`${date_start} ~ ${date_end}`}</p>
                 <p>{place_of_origin}</p>
                 <p>{artist_titles?.join(", ")}</p>
-                <p>{description}</p>
+                {description && parse(description)}
                 <p>{dimensions}</p>
                 <p>{medium_display}</p>
             </section>
