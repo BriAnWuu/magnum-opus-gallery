@@ -22,8 +22,7 @@ export default function Home() {
     } = useGetArtworks();
 
     // api rate limit delay = 1000; add delay to see throttle effect
-    const throttledFetch = useThrottle(fetchNextPage, 3000);
-
+    const throttledFetch = useThrottle(fetchNextPage, 1000);
     const { ref, inView } = useInView();
     useGetMoreArtworks(inView, hasNextPage, isFetchingNextPage, throttledFetch);
 
@@ -37,7 +36,10 @@ export default function Home() {
 
     return (
         <main className="w-full flex flex-col justify-center items-center gap-4">
-            <ul className="w-3/4 flex flex-col gap-4">
+            <ul
+                className="w-3/4 flex flex-wrap gap-4"
+                // className="grid grid-cols-3 gap-4 auto-cols-fr"
+            >
                 {data?.pages.map((page, idx) => (
                     <React.Fragment key={idx}>
                         {page.data.map((work: Artwork) => (
@@ -51,7 +53,7 @@ export default function Home() {
             ) : (
                 <p className="text-center">No more works found</p>
             )}
-            <div className="h-2" ref={ref} />
+            <div className="h-1" ref={ref} />
         </main>
     );
 }

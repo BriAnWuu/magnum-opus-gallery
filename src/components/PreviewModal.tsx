@@ -2,10 +2,11 @@
 
 import useBodyScrollLock from "@/hooks/useBodyScrollLock";
 import useGetArtworkById from "@/hooks/useGetArtworkById";
+import useInitPosition from "@/hooks/useInitPosition";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { closeSpring, openSpring } from "./animations/card-animations";
 import ModalContent from "./ModalContent";
@@ -20,8 +21,10 @@ export default function PreviewModal({
     id: number;
     className: string;
 }) {
+    const position = useInitPosition(id);
+
     const router = useRouter();
-    const modalRef = useRef<HTMLDivElement>(null);
+
     const [isClosing, setIsClosing] = useState(false);
 
     useBodyScrollLock();
@@ -47,30 +50,45 @@ export default function PreviewModal({
                 className="fixed p-8 inset-0 z-2 overflow-auto"
                 onClick={handleClose}
             >
-                <motion.div
-                    ref={modalRef}
-                    // style={{}}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={
-                        isClosing
-                            ? { opacity: 0, scale: 0.5 }
-                            : { opacity: 1, scale: 1 }
-                    }
-                    transition={isClosing ? closeSpring : openSpring}
-                    onAnimationComplete={handleNavigateHome}
-                    className={cn(
-                        "relative left-1/2 -translate-x-1/2 rounded-md bg-secondary overflow-hidden",
-                        className
-                    )}
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <CloseButton handleOnClick={handleClose} />
-                    {isLoading ? (
-                        <PreviewModalSkeleton />
-                    ) : (
-                        <ModalContent {...data.data} />
-                    )}
-                </motion.div>
+                {position && (
+                    <motion.div
+                        initial={{
+                            opacity: 0.2,
+                            scale: 0.3,
+                            x: position.x,
+                            y: position.y,
+                        }}
+                        animate={
+                            isClosing
+                                ? {
+                                      opacity: 0,
+                                      scale: 0.4,
+                                      x: position.x,
+                                      y: position.y,
+                                  }
+                                : {
+                                      opacity: 1,
+                                      scale: 1,
+                                      x: 0,
+                                      y: 0,
+                                  }
+                        }
+                        transition={isClosing ? closeSpring : openSpring}
+                        onAnimationComplete={handleNavigateHome}
+                        className={cn(
+                            "relative left-1/2 -translate-x-1/2 rounded-md bg-secondary overflow-hidden",
+                            className
+                        )}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <CloseButton handleOnClick={handleClose} />
+                        {isLoading ? (
+                            <PreviewModalSkeleton />
+                        ) : (
+                            <ModalContent {...data.data} />
+                        )}
+                    </motion.div>
+                )}
             </div>
         </>,
         document.body

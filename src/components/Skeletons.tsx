@@ -1,7 +1,7 @@
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Skeleton } from "./ui/skeleton";
 
-export function PreviewModalSkeleton({}) {
+export function PreviewModalSkeleton() {
     return (
         <div className="size-full bg-neutral-900">
             <AspectRatio ratio={16 / 9}>

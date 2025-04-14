@@ -2,12 +2,32 @@ import { Artwork } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { motion, useMotionValue } from "framer-motion";
 import Link from "next/link";
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { closeSpring, openSpring } from "./animations/card-animations";
 import ImageDisplay from "./ui/image-display";
 import Overlay from "./ui/overlay";
 
 function Card({ id, title, image_id }: Partial<Artwork>) {
+    // const cardRef = useRef<HTMLDivElement>(null);
+    // const [position, setPosition] = useState<{ x: number; y: number } | null>(
+    //     null
+    // );
+    // const position = usePosition(cardRef);
+
+    // const handleClick = () => {
+    //     if (!cardRef.current) return;
+    //     const { top, left, width, height } =
+    //         cardRef.current.getBoundingClientRect();
+
+    //     const centerX = window.innerWidth / 2;
+    //     const centerY = window.innerHeight / 2;
+
+    //     const x = left + width / 2 - centerX;
+    //     const y = top + height / 2 - centerY;
+
+    //     setPosition({ x, y });
+    // };
+
     // const [isSelected, setIsSelected] = useState<boolean>(false);
 
     // const y = useMotionValue(0);
@@ -25,9 +45,10 @@ function Card({ id, title, image_id }: Partial<Artwork>) {
 
     return (
         <li
-        // ref={containerRef}
-        // className="relative"
-        // onClick={() => setIsSelected((prev) => !prev)}
+            className="flex-grow flex-shrink-0 basis-[26%]"
+            // ref={containerRef}
+            // className="relative"
+            // onClick={() => setIsSelected((prev) => !prev)}
         >
             {/* <Overlay isSelected={isSelected} /> */}
             {/* <div
@@ -37,7 +58,7 @@ function Card({ id, title, image_id }: Partial<Artwork>) {
                         "fixed max-w-[700px] inset-x-0 top-0 z-1 overflow-hidden"
                 )}
             > */}
-            <Link href={`/artwork/${id}`} scroll={false}>
+            <Link id={`${id}`} href={`/artwork/${id}`} scroll={false}>
                 <motion.article
                 // ref={cardRef}
                 // style={{ ...inverted, zIndex, y }}
