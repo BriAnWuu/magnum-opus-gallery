@@ -47,7 +47,7 @@ export default function PreviewModal({
         <>
             <Overlay isClosing={isClosing} />
             <div
-                className="fixed p-4 sm:p-8 inset-0 z-2 overflow-auto"
+                className="fixed inset-0 z-2 overflow-auto p-4 sm:p-8"
                 onClick={handleClose}
             >
                 {position && (
@@ -76,7 +76,7 @@ export default function PreviewModal({
                         transition={isClosing ? closeSpring : openSpring}
                         onAnimationComplete={handleNavigateHome}
                         className={cn(
-                            "relative left-1/2 -translate-x-1/2 top-0 rounded-md bg-secondary overflow-hidden",
+                            "relative top-0 left-1/2 -translate-x-1/2 rounded-md bg-secondary overflow-hidden",
                             className
                         )}
                         onClick={(e) => e.stopPropagation()}
