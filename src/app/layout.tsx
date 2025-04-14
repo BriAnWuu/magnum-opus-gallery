@@ -41,9 +41,9 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <ArtICProvider>
-                        <QueryProvider>{children}</QueryProvider>
-                    </ArtICProvider>
+                    <QueryProvider>
+                        <ArtICProvider>{children}</ArtICProvider>
+                    </QueryProvider>
                     <DarkModeToggle />
                 </ThemeProvider>
             </body>
