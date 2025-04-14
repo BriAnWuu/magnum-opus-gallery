@@ -7,7 +7,7 @@ type ModalPageProps = {
     }>;
 };
 
-const className = "w-[600px]";
+const className = "w-full sm:max-w-xl xl:max-w-3xl";
 
 export default async function ModalPage({ params }: ModalPageProps) {
     const { id } = await params;
